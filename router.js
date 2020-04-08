@@ -97,6 +97,8 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+//! these need work
+
 // GET comments from specific post
 router.get("/:id/comments", (req, res) => {
   BlogPosts.findPostComments(req.params.id)
@@ -124,12 +126,13 @@ router.post("/:id/comments", (req, res) => {
         res
           .status(400)
           .json({ errorMessage: "Please provide text for the comment." });
+      } else {
+        res.status(201).json(comment);
       }
-      res.status(201).json(comment);
     })
     .catch((error) => {
       res.status(500).json({
-        error: "There was an error while saving the comment to the database",
+        error: `${error}There was an error while saving the comment to the database`,
       });
     });
 });
