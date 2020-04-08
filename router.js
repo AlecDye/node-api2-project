@@ -97,14 +97,12 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-//! these need work
-
 // GET comments from specific post
 router.get("/:id/comments", (req, res) => {
   BlogPosts.findPostComments(req.params.id)
     .then((comments) => {
       if (comments) {
-        res.status(200).json(messages);
+        res.status(200).json(comments);
       } else {
         res
           .status(404)
@@ -112,6 +110,7 @@ router.get("/:id/comments", (req, res) => {
       }
     })
     .catch((error) => {
+      // console.log("error", error);
       res
         .status(500)
         .json({ error: "The comments information could not be retrieved." });
@@ -120,6 +119,7 @@ router.get("/:id/comments", (req, res) => {
 
 // POST comment for a specific post
 router.post("/:id/comments", (req, res) => {
+  const id = req.params.id;
   BlogPosts.insertComment(req.body)
     .then((comment) => {
       if (!req.body.text) {
