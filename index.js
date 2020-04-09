@@ -12,6 +12,8 @@ server.get("/", (req, res) => {
   res.send(`<h1>Post and commenting thing</h2>`);
 });
 
-server.listen(4000, () => {
-  console.log("\n ~ Server is running on http://localhost:4000 ~ \n");
+const port = process.env.PORT || 4000;
+
+server.listen(port, () => {
+  console.log(`\n ~ Server is running on http://localhost:${port} ~ \n`);
 });
